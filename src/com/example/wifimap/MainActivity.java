@@ -64,7 +64,7 @@ public class MainActivity extends Activity {
 				    +"Speed: "+location.getSpeed()+" KM"+"\r\n"
 				    +"Time:"+location.getTime());
 				    h=new Handler();
-				    h.postAtTime(wifiwardriving, 6000);
+				    h.postAtTime(wifiwardriving, 10000);
 				}
 				@Override
 				public void onProviderDisabled(String provider) {
