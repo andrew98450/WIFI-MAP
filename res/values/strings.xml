@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">WIFI MAP</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="KML">Export KML File</string>
+    <string name="About">About</string>
+    <string name="Exit">Exit</string>
+    <string name="Clear">Clear</string>
+    <string name="KMLExport">Export KML File</string>
+
+</resources>

@@ -1,0 +1,75 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.wifimap.MainActivity" >
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical"
+        tools:ignore="RtlHardcoded" >
+
+        <ToggleButton
+            android:id="@+id/toggleButton1"
+            android:layout_width="329dp"
+            android:layout_height="wrap_content"
+            android:text="ToggleButton"
+            android:textOff="Start Wardriving"
+            android:textOn="Stop Wardriving"
+            tools:ignore="HardcodedText" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/linearLayout1"
+        android:layout_below="@+id/linearLayout1"
+        android:layout_marginTop="14dp"
+        android:orientation="vertical"
+        tools:ignore="RtlHardcoded" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="329dp"
+            android:layout_height="130dp"
+            android:text="GPS location:"
+            android:textSize="22sp"
+            tools:ignore="HardcodedText" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/linearLayout2"
+        android:layout_below="@+id/linearLayout2"
+        android:layout_marginTop="12dp"
+        android:orientation="vertical" >
+
+     <ScrollView
+         android:layout_width="fill_parent"
+         android:layout_height="283dp"
+         android:fillViewport="true"
+         android:scrollbars="vertical" >
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="329dp"
+            android:layout_height="match_parent"
+            android:text="Scan Found Wifi:"
+            android:textSize="15sp" />
+
+      </ScrollView>
+    </LinearLayout>
+
+</RelativeLayout>
