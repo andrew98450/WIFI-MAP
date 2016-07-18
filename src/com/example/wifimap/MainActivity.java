@@ -64,7 +64,7 @@ public class MainActivity extends Activity {
 				    +"Speed: "+location.getSpeed()+" KM"+"\r\n"
 				    +"Time:"+location.getTime());
 				    h=new Handler();
-				    h.postAtTime(wifiwardriving, 10000);
+				    h.postAtTime(wifiwardriving, 7000);
 				}
 				@Override
 				public void onProviderDisabled(String provider) {
@@ -118,6 +118,8 @@ public class MainActivity extends Activity {
 				  startActivity(setting);	//開啟設定頁面(Open Setting)
 			  }
 			}else{
+			     h=new Handler();
+			     h.removeCallbacks(wifiwardriving);
 			     gpsmana.removeUpdates(gpslist); //取消GPS定位(Cancel GPS Location)
 			}
 		}
@@ -162,7 +164,7 @@ public class MainActivity extends Activity {
 			     java.util.Date date=new java.util.Date();
 			     String FILE_PATH="wifimap-"+date.getTime()+".kml";
 			     File kml=new File(sdcard.getAbsoluteFile()+"/"+FILE_PATH);
-		    	 FileWriter wsd = null;
+		    	     FileWriter wsd = null;
 				 try {
 						wsd = new FileWriter(sdcard.getAbsoluteFile()+"/"+FILE_PATH);
 						wsd.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>"+"\r\n"+
