@@ -17,8 +17,8 @@ import android.database.Cursor;
 import android.database.sqlite.*;
 import java.io.*;
 public class MainActivity extends Activity {
-	public Double Long; //ÂÆ£ÂëäÁ∂ìÂ∫¶(Longitude)
-	public Double Lat;  //ÂÆ£ÂëäÁ∑ØÂ∫¶(Latitude)
+	public Double Long; //´≈ßi∏g´◊(Longitude)
+	public Double Lat;  //´≈ßiΩn´◊(Latitude)
 	public Handler h;
 	public static final int dbversion = 1;
 	public static final String dbname = "wifimap.db";
@@ -84,6 +84,11 @@ public class MainActivity extends Activity {
 			// TODO Auto-generated method stub
 			LocationManager gpsmana=(LocationManager)getSystemService(Context.LOCATION_SERVICE);
 			if(isChecked){
+			  WifiManager wifiManager =(WifiManager)getSystemService(Context.WIFI_SERVICE);
+			  if(!wifiManager.isWifiEnabled()){
+				  Toast.makeText(MainActivity.this,"Enabled Wifi....", Toast.LENGTH_LONG).show();
+				  wifiManager.setWifiEnabled(true);
+			  }
 			  if(gpsmana.isProviderEnabled(LocationManager.GPS_PROVIDER)){
 				  sqldatabase sqldata=new sqldatabase(MainActivity.this);
 				  SQLiteDatabase sql=sqldata.getWritableDatabase();
@@ -111,16 +116,16 @@ public class MainActivity extends Activity {
 					                +"capabilities"+" text"+");";
 					  sql.execSQL(TABLE);
 				  }
-			      gpsmana.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0,0, gpslist); //Âü∑Ë°åGPSÂÆö‰Ωç(Start GPS Location)
+			      gpsmana.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0,0, gpslist); //∞ı¶ÊGPS©w¶Ï(Start GPS Location)
 			  }else{
 				  Toast.makeText(MainActivity.this,"Please Open GPS", Toast.LENGTH_LONG).show();
 				  Intent setting =new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-				  startActivity(setting);	//ÈñãÂïüË®≠ÂÆöÈ†ÅÈù¢(Open Setting)
+				  startActivity(setting);	//∂}±“≥]©w≠∂≠±(Open Setting)
 			  }
 			}else{
-			     h=new Handler();
-			     h.removeCallbacks(wifiwardriving);
-			     gpsmana.removeUpdates(gpslist); //ÂèñÊ∂àGPSÂÆö‰Ωç(Cancel GPS Location)
+				 h=new Handler();
+				 h.removeCallbacks(wifiwardriving);
+			     gpsmana.removeUpdates(gpslist); //®˙Æ¯GPS©w¶Ï(Cancel GPS Location)
 			}
 		}
 	}
@@ -156,6 +161,10 @@ public class MainActivity extends Activity {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				// TODO Auto-generated method stub
+				 TextView txt1=(TextView)findViewById(R.id.textView1);
+				 TextView txt2=(TextView)findViewById(R.id.textView2);
+				 txt1.setText("GPS location:");
+				 txt2.setText("Scan Found Wifi:");
 				try{
 			     sqldatabase sqldata=new sqldatabase(MainActivity.this);
 			     SQLiteDatabase sql=sqldata.getReadableDatabase();
@@ -164,7 +173,7 @@ public class MainActivity extends Activity {
 			     java.util.Date date=new java.util.Date();
 			     String FILE_PATH="wifimap-"+date.getTime()+".kml";
 			     File kml=new File(sdcard.getAbsoluteFile()+"/"+FILE_PATH);
-		    	     FileWriter wsd = null;
+		    	 FileWriter wsd = null;
 				 try {
 						wsd = new FileWriter(sdcard.getAbsoluteFile()+"/"+FILE_PATH);
 						wsd.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>"+"\r\n"+
@@ -250,11 +259,11 @@ public class MainActivity extends Activity {
 					// TODO Auto-generated method stub
 					 TextView txt1=(TextView)findViewById(R.id.textView1);
 					 TextView txt2=(TextView)findViewById(R.id.textView2);
+					 txt1.setText("GPS location:");
+					 txt2.setText("Scan Found Wifi:");
 					 sqldatabase sqldata=new sqldatabase(MainActivity.this);
 				     SQLiteDatabase sql=sqldata.getWritableDatabase();
 					 sql.execSQL("DROP TABLE IF EXISTS wardriving");
-					 txt1.setText("GPS location:");
-					 txt2.setText("Scan Found Wifi:");
 					 Toast.makeText(MainActivity.this,"Clear Successfully", Toast.LENGTH_LONG).show();
 				 }
 			    })
