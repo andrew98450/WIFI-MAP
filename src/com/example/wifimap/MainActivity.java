@@ -17,8 +17,8 @@ import android.database.Cursor;
 import android.database.sqlite.*;
 import java.io.*;
 public class MainActivity extends Activity {
-	public Double Long; //«Å§i¸g«×(Longitude)
-	public Double Lat;  //«Å§i½n«×(Latitude)
+	public Double Long; //å®£å‘Šç¶“åº¦(Longitude)
+	public Double Lat;  //å®£å‘Šç·¯åº¦(Latitude)
 	public Handler h;
 	public static final int dbversion = 1;
 	public static final String dbname = "wifimap.db";
@@ -64,7 +64,7 @@ public class MainActivity extends Activity {
 				    +"Speed: "+location.getSpeed()+" KM"+"\r\n"
 				    +"Time:"+location.getTime());
 				    h=new Handler();
-				    h.postAtTime(wifiwardriving, 10000);
+				    h.postAtTime(wifiwardriving, 6000);
 				}
 				@Override
 				public void onProviderDisabled(String provider) {
@@ -111,14 +111,14 @@ public class MainActivity extends Activity {
 					                +"capabilities"+" text"+");";
 					  sql.execSQL(TABLE);
 				  }
-			      gpsmana.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0,0, gpslist); //°õ¦æGPS©w¦ì(Start GPS Location)
+			      gpsmana.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0,0, gpslist); //åŸ·è¡ŒGPSå®šä½(Start GPS Location)
 			  }else{
 				  Toast.makeText(MainActivity.this,"Please Open GPS", Toast.LENGTH_LONG).show();
 				  Intent setting =new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-				  startActivity(setting);	//¶}±Ò³]©w­¶­±(Open Setting)
+				  startActivity(setting);	//é–‹å•Ÿè¨­å®šé é¢(Open Setting)
 			  }
 			}else{
-			     gpsmana.removeUpdates(gpslist); //¨ú®øGPS©w¦ì(Cancel GPS Location)
+			     gpsmana.removeUpdates(gpslist); //å–æ¶ˆGPSå®šä½(Cancel GPS Location)
 			}
 		}
 	}
