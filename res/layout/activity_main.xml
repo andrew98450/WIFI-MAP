@@ -41,9 +41,9 @@
         <TextView
             android:id="@+id/textView1"
             android:layout_width="329dp"
-            android:layout_height="130dp"
+            android:layout_height="85dp"
             android:text="GPS location:"
-            android:textSize="22sp"
+            android:textSize="14sp"
             tools:ignore="HardcodedText" />
 
     </LinearLayout>
@@ -58,7 +58,7 @@
 
      <ScrollView
          android:layout_width="fill_parent"
-         android:layout_height="283dp"
+         android:layout_height="330dp"
          android:fillViewport="true"
          android:scrollbars="vertical" >
 
@@ -67,7 +67,7 @@
             android:layout_width="329dp"
             android:layout_height="match_parent"
             android:text="Scan Found Wifi:"
-            android:textSize="15sp" />
+            android:textSize="14sp" />
 
       </ScrollView>
     </LinearLayout>
