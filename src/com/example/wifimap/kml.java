@@ -48,7 +48,34 @@ public class kml extends Activity {
 						wsd.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>"+"\r\n"+
 							          "<kml xmlns=\"http://earth.google.com/kml/2.2\">"+"\r\n"+
 							          "<Document>"+"\r\n"+
-							          "<name>WifiMAP</name>"+"\r\n");
+							          "<name>WifiMAP</name>"+"\r\n"+
+							          "<Style id="+"\""+"wifimap_n"+"\""+">"+"\r\n"+
+								      "<IconStyle>"+"\r\n"+
+								        "<Icon>"+"\r\n"+
+								          "<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>"+"\r\n"+
+								        "</Icon>"+"\r\n"+
+								      "</IconStyle>"+"\r\n"+
+								    "</Style>"+"\r\n"+
+								    "<Style id="+"\""+"wifimap_h"+"\""+">"+"\r\n"+
+								      "<IconStyle>"+"\r\n"+
+								        "<scale>1.2</scale>"+"\r\n"+
+								        "<Icon>"+"\r\n"+
+								          "<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>"+"\r\n"+
+								        "</Icon>"+"\r\n"+
+								      "</IconStyle>"+"\r\n"+
+								    "</Style>"+"\r\n"+
+								    "<StyleMap id="+"\""+"wifimap"+"\""+">"+"\r\n"+
+								      "<Pair>"+"\r\n"+
+								        "<key>normal</key>"+"\r\n"+
+								        "<styleUrl>#wifimap_n</styleUrl>"+"\r\n"+
+								      "</Pair>"+"\r\n"+
+								      "<Pair>"+"\r\n"+
+								        "<key>highlight</key>"+"\r\n"+
+								        "<styleUrl>#wifimap_h</styleUrl>"+"\r\n"+
+								      "</Pair>"+"\r\n"+
+								    "</StyleMap>"+"\r\n"+
+								    "<Folder>"+"\r\n"+
+	                                "<name>WIFI-MAP</name>"+"\r\n");
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -61,44 +88,17 @@ public class kml extends Activity {
 			    	Double lat=cu.getDouble(cu.getColumnIndex("Latitude"));
 			    	Double log=cu.getDouble(cu.getColumnIndex("Longitude"));
 			    	int frequency=cu.getInt(cu.getColumnIndex("Frequency"));
-			    	String capabilities=cu.getString(cu.getColumnIndex("capabilities"));
+			    	String cap=cu.getString(cu.getColumnIndex("capabilities"));
 						try {
 						  wsd.write(
-							 "<Style id="+"\""+SSID.toString()+"\""+">"+"\r\n"+
-							 "<IconStyle>"+"\r\n"+
-							 "<color>7f00FF00</color>"+"\r\n"+
-							 "<scale>1</scale>"+"\r\n"+
-							 "<Icon>"+"\r\n"+
-							 "<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>"+"\r\n"+
-							 "</Icon>"+"\r\n"+
-							 "</IconStyle>"+"\r\n"+
-							 "</Style>"+"\r\n"+
-							 "<Style id="+"\""+SSID.toString()+"\""+">"+"\r\n"+
-							 "<IconStyle>"+"\r\n"+
-							 "<color>7f00FF00</color>"+"\r\n"+
-							 "<scale>1</scale>"+"\r\n"+
-							 "<Icon>"+"\r\n"+
-							 "<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>"+"\r\n"+
-							 "</Icon>"+"\r\n"+
-							 "</IconStyle>"+"\r\n"+
-							 "</Style>"+"\r\n"+
-							 "<StyleMap id="+"\""+SSID.toString()+"\""+">"+"\r\n"+
-							 "<Pair>"+"\r\n"+
-							 "<key>normal</key>"+"\r\n"+
-							 "<styleUrl>"+"#"+SSID.toString()+"</styleUrl>"+"\r\n"+
-							 "</Pair>"+"\r\n"+
-							 "<Pair>"+"\r\n"+
-						     "<key>highlight</key>"+"\r\n"+
-							 "<styleUrl>"+"#"+SSID.toString()+"</styleUrl>"+"\r\n"+
-							 "</Pair>"+"\r\n"+
-							 "</StyleMap>"+"\r\n"+
-							 "<Placemark>"+"\r\n"+
-							 "<name>"+SSID.toString()+"</name>"+"\r\n"+
-							 "<styleUrl>#"+SSID.toString()+"</styleUrl>    <description>"+"<![CDATA[BSSID:"+BSSID.toString()+"<br>RSSID:"+RSSID+"<br>Frequency:"+frequency+"<br>Encryption: "+capabilities.toString()+"]]></description>"+"\r\n"+
-							 "<Point>"+"\r\n"+
-							 "<LookAt><longitude>"+log.toString()+"</longitude><latitude>"+lat.toString()+"</latitude><altitude>1</altitude><range>1</range><tilt>1</tilt><heading>1</heading></LookAt>      <coordinates>"+log.toString()+","+lat.toString()+",0"+"</coordinates>"+"\r\n"+
-							 "</Point>"+"\r\n"+
-							 "</Placemark>"+"\r\n"
+                            "<Placemark>"+"\r\n"+
+							"<name>"+SSID.toString()+"</name>"+"\r\n"+
+							"<description>"+"BSSID:"+BSSID.toString()+"&lt;br&gt;"+"RSSID:"+RSSID+"&lt;br&gt;"+"Frequency:"+frequency+"&lt;br&gt;"+"Encryption: "+cap.toString()+"</description>"+"\r\n"+
+							"<styleUrl>#wifimap</styleUrl>"+"\r\n"+
+							"<Point>"+"\r\n"+
+							"<coordinates>"+log+","+lat+"</coordinates>"+"\r\n"+
+							"</Point>"+"\r\n"+
+							"</Placemark>"+"\r\n"
 							 );
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
@@ -106,7 +106,7 @@ public class kml extends Activity {
 						}
 			     }
 				try {
-					wsd.append("</Document>"+"\r\n"+"</kml>");
+					wsd.append("</Folder>"+"\r\n"+"</Document>"+"\r\n"+"</kml>");
 					wsd.close();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block

@@ -31,26 +31,12 @@ public class wifigps_scan extends Service {
 			// TODO Auto-generated method stub
 		}
 	}
-    Runnable wifi=new Runnable(){
+	Runnable data=new Runnable(){
 		@Override
 		public void run() {
 			// TODO Auto-generated method stub
 			WifiManager wifiManager =(WifiManager)getSystemService(Context.WIFI_SERVICE);
-			MainActivity.txt1.setText
-	 		    ("GPS location: Ok"+"\r\n"
-	 		    +"Latitude: "+lat+" "
-	 		    +"Longitude: "+lon+"\r\n" 
-	 		    +"Speed: "+speed+" KM"+" "
-	 		    +"Time:"+time);
-			MainActivity.txt3.setText("");
-	        for(int i=1;i<wifiManager.getScanResults().size();i++){	
-		      MainActivity.txt2.setText("Wireless: OK"+" Found Wifi: "+i+" AP");
-		      MainActivity.txt3.append(wifiManager.getScanResults().get(i).SSID+
-					    "("+wifiManager.getScanResults().get(i).BSSID+
-					    ")["+wifiManager.getScanResults().get(i).level+
-					    "]"+wifiManager.getScanResults().get(i).capabilities+"\r\n");
-	        } 
-	        sqldatabase sqldata=new sqldatabase(wifigps_scan.this);
+			sqldatabase sqldata=new sqldatabase(wifigps_scan.this);
 	        SQLiteDatabase sql=sqldata.getWritableDatabase();
 	        ContentValues cv = new ContentValues();
 	        for(int i=0;i<wifiManager.getScanResults().size();i++){
@@ -63,9 +49,40 @@ public class wifigps_scan extends Service {
 	           cv.put("capabilities", wifiManager.getScanResults().get(i).capabilities);
 	           sql.insert("wardriving", null, cv);
 	        }
-		  sql.close();
-	   }
-    };
+		    sql.close();
+		}
+	};
+	Runnable wifi=new Runnable(){
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			WifiManager wifiManager =(WifiManager)getSystemService(Context.WIFI_SERVICE);
+			if(lat==0.0&&lon==0.0&&speed==0.0f&&time==0){
+				MainActivity.txt1.setText
+	 		    ("GPS location: Wait"+"\r\n"
+	 		    +"Latitude: "+lat+" "
+	 		    +"Longitude: "+lon+"\r\n" 
+	 		    +"Speed: "+speed+" KM"+" "
+	 		    +"Time:"+time);
+			}else{
+				MainActivity.txt1.setText
+	 		    ("GPS location: Ok"+"\r\n"
+	 		    +"Latitude: "+lat+" "
+	 		    +"Longitude: "+lon+"\r\n" 
+	 		    +"Speed: "+speed+" KM"+" "
+	 		    +"Time:"+time);
+			}
+			MainActivity.txt3.setText("");
+	        for(int i=1;i<wifiManager.getScanResults().size();i++){	
+		      MainActivity.txt2.setText("Wireless [Scanner]: OK"+" Found Wifi: "+i+" AP");
+		      MainActivity.txt3.append(wifiManager.getScanResults().get(i).SSID+
+					    "("+wifiManager.getScanResults().get(i).BSSID+
+					    ")["+wifiManager.getScanResults().get(i).level+
+					    "]"+wifiManager.getScanResults().get(i).capabilities+"\r\n");
+	        } 
+	        h.postDelayed(this, 2000);
+		}
+	};		
 	public LocationListener gpslist=new LocationListener(){
 		@Override
 		public void onLocationChanged(Location location) {
@@ -74,7 +91,7 @@ public class wifigps_scan extends Service {
 			lon = location.getLongitude();
 			speed = location.getSpeed();
 			time = location.getTime();
-		    h.postDelayed(wifi,5000);
+			h.postDelayed(data, 2000);
 		}
 		@Override
 		public void onProviderDisabled(String provider) {
@@ -92,12 +109,14 @@ public class wifigps_scan extends Service {
 		public int onStartCommand(Intent intent, int flags, int startId) {
 		  LocationManager gpsmana=(LocationManager)getSystemService(Context.LOCATION_SERVICE);
 		  gpsmana.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000,0,gpslist);
+		  h.postDelayed(wifi, 2000);
 		  return super.onStartCommand(intent, flags, startId);
 	    }
 	    @Override
 	    public void onDestroy() {
 		  super.onDestroy();
 		  h.removeCallbacks(wifi);
+		  h.removeCallbacks(data);
 		  LocationManager gpsmana=(LocationManager)getSystemService(Context.LOCATION_SERVICE);
 		  gpsmana.removeUpdates(gpslist);
 	    }
