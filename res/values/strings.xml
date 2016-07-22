@@ -9,5 +9,6 @@
     <string name="Exit">Exit</string>
     <string name="Clear">Clear</string>
     <string name="KMLExport">Export KML File</string>
+    <string name="Settings">Settings</string>
 
 </resources>

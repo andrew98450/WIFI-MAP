@@ -19,8 +19,8 @@ import android.widget.ToggleButton;
 public class MainActivity extends Activity {
 	public static final int dbversion = 1;
 	public static final String dbname = "wifimap.db";
-    public static TextView txt1,txt2;
-	private class tb1 implements CompoundButton.OnCheckedChangeListener{
+    public static TextView txt1,txt2,txt3;	 
+	public class tb1 implements CompoundButton.OnCheckedChangeListener{
 		@Override
 		public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 			// TODO Auto-generated method stub
@@ -58,16 +58,16 @@ public class MainActivity extends Activity {
 					                +"capabilities"+" text"+");";
 					  sql.execSQL(TABLE);
 				  }
-				  Intent intent = new Intent(MainActivity.this, wifigps_scan.class);
-		          startService(intent);
+				  Intent start =new Intent(MainActivity.this,wifigps_scan.class);
+					 startService(start);
 			  }else{
 				  Toast.makeText(MainActivity.this,"Please Open GPS", Toast.LENGTH_LONG).show();
 				  Intent setting =new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-				  startActivity(setting);	//開啟設定頁面(Open Setting)
+				  startActivity(setting);
 			  }
 			}else{
-				Intent intent = new Intent(MainActivity.this, wifigps_scan.class);
-	            stopService(intent);
+				Intent stop =new Intent(MainActivity.this,wifigps_scan.class);
+				stopService(stop);
 			} 
 		}
 	}
@@ -77,6 +77,7 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		txt1=(TextView)findViewById(R.id.textView1);
 		txt2=(TextView)findViewById(R.id.textView2);
+		txt3=(TextView)findViewById(R.id.textView3);
 		ToggleButton tobt=(ToggleButton)findViewById(R.id.toggleButton1);
 		tobt.setOnCheckedChangeListener(new tb1());
 	}
@@ -106,8 +107,10 @@ public class MainActivity extends Activity {
 					// TODO Auto-generated method stub
 					 TextView txt1=(TextView)findViewById(R.id.textView1);
 					 TextView txt2=(TextView)findViewById(R.id.textView2);
-					 txt1.setText("GPS location:");
-					 txt2.setText("Scan Found Wifi:");
+					 TextView txt3=(TextView)findViewById(R.id.textView3);
+					 txt1.setText("GPS location: No Data");
+					 txt2.setText("Wireless: No Data");
+					 txt3.setText("");
 					 sqldatabase sqldata=new sqldatabase(MainActivity.this);
 				     SQLiteDatabase sql=sqldata.getWritableDatabase();
 					 sql.execSQL("DROP TABLE IF EXISTS wardriving");
