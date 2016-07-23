@@ -56,22 +56,10 @@ public class kml extends Activity {
 								        "</Icon>"+"\r\n"+
 								      "</IconStyle>"+"\r\n"+
 								    "</Style>"+"\r\n"+
-								    "<Style id="+"\""+"wifimap_h"+"\""+">"+"\r\n"+
-								      "<IconStyle>"+"\r\n"+
-								        "<scale>1.2</scale>"+"\r\n"+
-								        "<Icon>"+"\r\n"+
-								          "<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>"+"\r\n"+
-								        "</Icon>"+"\r\n"+
-								      "</IconStyle>"+"\r\n"+
-								    "</Style>"+"\r\n"+
 								    "<StyleMap id="+"\""+"wifimap"+"\""+">"+"\r\n"+
 								      "<Pair>"+"\r\n"+
 								        "<key>normal</key>"+"\r\n"+
 								        "<styleUrl>#wifimap_n</styleUrl>"+"\r\n"+
-								      "</Pair>"+"\r\n"+
-								      "<Pair>"+"\r\n"+
-								        "<key>highlight</key>"+"\r\n"+
-								        "<styleUrl>#wifimap_h</styleUrl>"+"\r\n"+
 								      "</Pair>"+"\r\n"+
 								    "</StyleMap>"+"\r\n"+
 								    "<Folder>"+"\r\n"+
@@ -81,7 +69,7 @@ public class kml extends Activity {
 						e1.printStackTrace();
 					}
 			     for(int i=0;i<cu.getCount();i++){
-			    	 cu.moveToPosition(i);
+			    	cu.moveToPosition(i);
 			    	String SSID=cu.getString(cu.getColumnIndex("SSID"));
 			    	String BSSID=cu.getString(cu.getColumnIndex("BSSID"));
 			    	int RSSID=cu.getInt(cu.getColumnIndex("RSSID"));
