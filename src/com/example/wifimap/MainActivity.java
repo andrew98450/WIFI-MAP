@@ -13,13 +13,15 @@ import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.CompoundButton;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 public class MainActivity extends Activity {
 	public static final int dbversion = 1;
 	public static final String dbname = "wifimap.db";
-    public static TextView txt1,txt2,txt3;	 
+    public static TextView txt1,txt2,txt3;	
+    public static RadioButton rd1,rd2,rd3;
 	public class tb1 implements CompoundButton.OnCheckedChangeListener{
 		@Override
 		public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -78,6 +80,9 @@ public class MainActivity extends Activity {
 		txt1=(TextView)findViewById(R.id.textView1);
 		txt2=(TextView)findViewById(R.id.textView2);
 		txt3=(TextView)findViewById(R.id.textView3);
+		rd1=(RadioButton)findViewById(R.id.radio0);
+		rd2=(RadioButton)findViewById(R.id.radio1);
+		rd3=(RadioButton)findViewById(R.id.radio2);
 		ToggleButton tobt=(ToggleButton)findViewById(R.id.toggleButton1);
 		tobt.setOnCheckedChangeListener(new tb1());
 	}
@@ -108,7 +113,7 @@ public class MainActivity extends Activity {
 					 TextView txt1=(TextView)findViewById(R.id.textView1);
 					 TextView txt2=(TextView)findViewById(R.id.textView2);
 					 TextView txt3=(TextView)findViewById(R.id.textView3);
-					 txt1.setText("GPS location: No Data");
+					 txt1.setText("Location: No Data");
 					 txt2.setText("Wireless: No Data");
 					 txt3.setText("");
 					 sqldatabase sqldata=new sqldatabase(MainActivity.this);

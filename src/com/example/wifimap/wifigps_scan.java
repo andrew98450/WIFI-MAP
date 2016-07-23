@@ -31,6 +31,23 @@ public class wifigps_scan extends Service {
 			// TODO Auto-generated method stub
 		}
 	}
+	public void data(){
+	 WifiManager wifiManager =(WifiManager)getSystemService(Context.WIFI_SERVICE);
+	 sqldatabase sqldata=new sqldatabase(wifigps_scan.this);
+     SQLiteDatabase sql=sqldata.getWritableDatabase();
+     ContentValues cv = new ContentValues();
+     for(int i=0;i<wifiManager.getScanResults().size();i++){
+	    cv.put("SSID", wifiManager.getScanResults().get(i).SSID);
+		cv.put("BSSID", wifiManager.getScanResults().get(i).BSSID.toUpperCase());
+	    cv.put("RSSID", wifiManager.getScanResults().get(i).level);
+		cv.put("Latitude", lat);
+	    cv.put("Longitude", lon);
+	    cv.put("Frequency", wifiManager.getScanResults().get(i).frequency);
+	    cv.put("capabilities", wifiManager.getScanResults().get(i).capabilities);
+	    sql.insert("wardriving", null, cv);
+     }
+    sql.close();
+   }
 	Runnable wifi=new Runnable(){
 		@Override
 		public void run() {
@@ -45,35 +62,60 @@ public class wifigps_scan extends Service {
 						"]"+wifiManager.getScanResults().get(i).capabilities+"\r\n");
 		    } 
 			if(lat==0.0&&lon==0.0&&speed==0.0f&&time==0){
+			if(MainActivity.rd1.isChecked()){
 				MainActivity.txt1.setText
 	 		    ("GPS location: Wait"+"\r\n"
 	 		    +"Latitude: "+lat+" "
 	 		    +"Longitude: "+lon+"\r\n" 
 	 		    +"Speed: "+speed+" KM"+" "
 	 		    +"Time:"+time);
+			}
+			if(MainActivity.rd2.isChecked()){
+				MainActivity.txt1.setText
+	 		    ("Network location: Wait"+"\r\n"
+	 		    +"Latitude: "+lat+" "
+	 		    +"Longitude: "+lon+"\r\n" 
+	 		    +"Speed: "+speed+" KM"+" "
+	 		    +"Time:"+time);
+			}
+			if(MainActivity.rd3.isChecked()){
+				MainActivity.txt1.setText
+	 		    ("GPS+Network location: Wait"+"\r\n"
+	 		    +"Latitude: "+lat+" "
+	 		    +"Longitude: "+lon+"\r\n" 
+	 		    +"Speed: "+speed+" KM"+" "
+	 		    +"Time:"+time);
+			}
 			}else{
+			 if(MainActivity.rd1.isChecked()){
 				MainActivity.txt1.setText
 	 		    ("GPS location: Ok"+"\r\n"
 	 		    +"Latitude: "+lat+" "
 	 		    +"Longitude: "+lon+"\r\n" 
 	 		    +"Speed: "+speed+" KM"+" "
 	 		    +"Time:"+time);
-	        sqldatabase sqldata=new sqldatabase(wifigps_scan.this);
-	        SQLiteDatabase sql=sqldata.getWritableDatabase();
-	        ContentValues cv = new ContentValues();
-	        for(int i=0;i<wifiManager.getScanResults().size();i++){
-			    cv.put("SSID", wifiManager.getScanResults().get(i).SSID);
-				cv.put("BSSID", wifiManager.getScanResults().get(i).BSSID.toUpperCase());
-			    cv.put("RSSID", wifiManager.getScanResults().get(i).level);
-				cv.put("Latitude", lat);
-			    cv.put("Longitude", lon);
-			    cv.put("Frequency", wifiManager.getScanResults().get(i).frequency);
-			    cv.put("capabilities", wifiManager.getScanResults().get(i).capabilities);
-			    sql.insert("wardriving", null, cv);
-	          }
-		     sql.close();
+	            data();
 			}
-	        h.postDelayed(this, 2000);
+			if(MainActivity.rd2.isChecked()){
+				MainActivity.txt1.setText
+		 		("Network location: Ok"+"\r\n"
+		 		+"Latitude: "+lat+" "
+		 		+"Longitude: "+lon+"\r\n" 
+		 		+"Speed: "+speed+" KM"+" "
+		 		+"Time:"+time);
+		        data();
+			}
+			if(MainActivity.rd3.isChecked()){
+				MainActivity.txt1.setText
+		 	    ("GPS+Network location: Ok"+"\r\n"
+		 		+"Latitude: "+lat+" "
+		 	    +"Longitude: "+lon+"\r\n" 
+		 		+"Speed: "+speed+" KM"+" "
+		 		+"Time:"+time);
+		        data();
+			}
+		  }
+	      h.postDelayed(this, 2000);
 		}
 	};		
 	public LocationListener gpslist=new LocationListener(){
@@ -100,8 +142,19 @@ public class wifigps_scan extends Service {
 		@Override
 		public int onStartCommand(Intent intent, int flags, int startId) {
 		  LocationManager gpsmana=(LocationManager)getSystemService(Context.LOCATION_SERVICE);
+		  if(MainActivity.rd1.isChecked()){
 		  gpsmana.requestLocationUpdates(LocationManager.GPS_PROVIDER,0,0,gpslist);
 		  h.postDelayed(wifi, 2000);
+		  }
+		  if(MainActivity.rd2.isChecked()){
+		  gpsmana.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,0,0,gpslist);
+		  h.postDelayed(wifi, 2000);
+		  }
+		  if(MainActivity.rd3.isChecked()){
+		  gpsmana.requestLocationUpdates(LocationManager.GPS_PROVIDER,0,0,gpslist);
+		  gpsmana.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,0,0,gpslist);
+		  h.postDelayed(wifi, 2000);
+		  }
 		  return super.onStartCommand(intent, flags, startId);
 	    }
 	    @Override
