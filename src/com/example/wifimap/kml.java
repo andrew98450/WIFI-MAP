@@ -52,7 +52,7 @@ public class kml extends Activity {
 							          "<Style id="+"\""+"wifimap_n"+"\""+">"+"\r\n"+
 								      "<IconStyle>"+"\r\n"+
 								        "<Icon>"+"\r\n"+
-								          "<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>"+"\r\n"+
+								     "<href>http://maps.google.com/mapfiles/kml/shapes/target.png</href>"+"\r\n"+
 								        "</Icon>"+"\r\n"+
 								      "</IconStyle>"+"\r\n"+
 								    "</Style>"+"\r\n"+

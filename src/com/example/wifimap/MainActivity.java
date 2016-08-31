@@ -45,7 +45,7 @@ public class MainActivity extends Activity {
 				                +"Latitude"+" real,"
 				                +"Longitude"+" real,"
 				                +"Frequency"+" integer,"
-				                +"capabilities"+" text"+");";
+				                +"capabilities"+" text,"+");";
 				  sql.execSQL(TABLE);
 				  }catch(Exception e){
 					  sql.execSQL("DROP TABLE IF EXISTS wardriving");

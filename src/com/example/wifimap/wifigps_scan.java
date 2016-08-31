@@ -68,7 +68,7 @@ public class wifigps_scan extends Service {
 						"("+wifiManager.getScanResults().get(i).BSSID+
 						")["+wifiManager.getScanResults().get(i).level+
 						"]"+wifiManager.getScanResults().get(i).capabilities+"\r\n");
-		    } 
+		    }
 			if(lat==0.0&&lon==0.0&&speed==0.0f&&time==0){
 				if(MainActivity.rd1.isChecked()){
 					MainActivity.txt1.setText
@@ -94,35 +94,7 @@ public class wifigps_scan extends Service {
 		 		    +"Speed: "+speed+" KM"+" "
 		 		    +"Time:"+time);
 				}
-			}else{
-				if(MainActivity.rd1.isChecked()){
-					MainActivity.txt1.setText
-					("GPS location: Ok"+"\r\n"
-					+"Latitude: "+lat+" "
-					+"Longitude: "+lon+"\r\n" 
-					+"Speed: "+speed+" KM"+" "
-					+"Time:"+time);
-		            data();
-				}
-				if(MainActivity.rd2.isChecked()){
-					MainActivity.txt1.setText
-			 		("Network location: Ok"+"\r\n"
-			 		+"Latitude: "+lat+" "
-			 		+"Longitude: "+lon+"\r\n" 
-			 		+"Speed: "+speed+" KM"+" "
-			 		+"Time:"+time);
-			        data();
-				}
-				if(MainActivity.rd3.isChecked()){
-					MainActivity.txt1.setText
-			 	    ("GPS+Network location: Ok"+"\r\n"
-			 		+"Latitude: "+lat+" "
-			 	    +"Longitude: "+lon+"\r\n" 
-			 		+"Speed: "+speed+" KM"+" "
-			 		+"Time:"+time);
-			        data();
-				}
-		  }
+			}else{data();}
 	      h.postDelayed(this, 2000);
 		}
 	};		
@@ -134,6 +106,30 @@ public class wifigps_scan extends Service {
 			lon = location.getLongitude();
 			speed = location.getSpeed();
 			time = location.getTime();
+			if(MainActivity.rd1.isChecked()){
+				MainActivity.txt1.setText
+				("GPS location: Ok"+"\r\n"
+				+"Latitude: "+lat+" "
+				+"Longitude: "+lon+"\r\n" 
+				+"Speed: "+speed+" KM"+" "
+				+"Time:"+time);
+			}
+			if(MainActivity.rd2.isChecked()){
+				MainActivity.txt1.setText
+		 		("Network location: Ok"+"\r\n"
+		 		+"Latitude: "+lat+" "
+		 		+"Longitude: "+lon+"\r\n" 
+		 		+"Speed: "+speed+" KM"+" "
+		 		+"Time:"+time);
+			}
+			if(MainActivity.rd3.isChecked()){
+				MainActivity.txt1.setText
+		 	    ("GPS+Network location: Ok"+"\r\n"
+		 		+"Latitude: "+lat+" "
+		 	    +"Longitude: "+lon+"\r\n" 
+		 		+"Speed: "+speed+" KM"+" "
+		 		+"Time:"+time);
+			}
 		}
 		@Override
 		public void onProviderDisabled(String provider) {
