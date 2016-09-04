@@ -141,6 +141,10 @@ public class MainActivity extends Activity {
 			    })
 			   .setNegativeButton("No", null).show();
 			break;
+		case R.id.mapview:
+			Intent map = new Intent(MainActivity.this, mapview.class);
+			startActivity(map);
+			break;
 		}
 		return super.onOptionsItemSelected(item);
 	}

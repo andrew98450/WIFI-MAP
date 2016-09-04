@@ -1,5 +1,4 @@
 package com.example.wifimap;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import android.app.Activity;
@@ -41,7 +40,6 @@ public class kml extends Activity {
 				 sqldatabase sqldata=new sqldatabase(kml.this);
 			     SQLiteDatabase sql=sqldata.getReadableDatabase();
 			     Cursor cu=sql.query("wardriving", null, null, null, null, null, null);
-			     File kmlfile=new File(ed1.getText().toString());
 		    	 FileWriter wsd = null;
 				 try {
 						wsd = new FileWriter(ed1.getText().toString());
