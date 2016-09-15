@@ -4,6 +4,7 @@ import android.app.*;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.location.Location;
@@ -11,12 +12,12 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.wifi.WifiManager;
 public class wifigps_scan extends Service {
-	Handler h=new Handler();
-	public static final int dbversion = 1;
-	public static final String dbname = "wifimap.db";
-	public double lat,lon;
-	public float speed;
-	public long time;
+	Handler h=new Handler(); 
+	public static final int dbversion = 1; 
+	public static final String dbname = "wifimap.db"; 
+	public double lat,lon; 
+	public float speed;  
+	public long time;  
 	public class sqldatabase extends SQLiteOpenHelper{
 	    public sqldatabase(Context context) {
 			super(context, dbname, null, dbversion);
@@ -35,7 +36,15 @@ public class wifigps_scan extends Service {
 		@Override
 		protected Void doInBackground(Void... params) {
 			// TODO Auto-generated method stub
-			h.postDelayed(wifigps, 2000);
+			h.postDelayed(wifigps,1500);
+			return null;
+		}
+	}
+	public class asyncdata extends AsyncTask<Void,Void,Void>{
+		@Override
+		protected Void doInBackground(Void... params) {
+			// TODO Auto-generated method stub
+			data();
 			return null;
 		}
 	}
@@ -45,14 +54,17 @@ public class wifigps_scan extends Service {
      SQLiteDatabase sql=sqldata.getWritableDatabase();
      ContentValues cv = new ContentValues();
      for(int i=0;i<wifiManager.getScanResults().size();i++){
+        Cursor cu=sql.query("wardriving", new String[]{"SSID"}, "bssid = ?", new String[]{wifiManager.getScanResults().get(i).BSSID}, null, null, null);
+        if(!cu.moveToFirst()){
 	    cv.put("SSID", wifiManager.getScanResults().get(i).SSID);
-		cv.put("BSSID", wifiManager.getScanResults().get(i).BSSID.toUpperCase());
+		cv.put("BSSID", wifiManager.getScanResults().get(i).BSSID);
 	    cv.put("RSSID", wifiManager.getScanResults().get(i).level);
 		cv.put("Latitude", lat);
 	    cv.put("Longitude", lon);
 	    cv.put("Frequency", wifiManager.getScanResults().get(i).frequency);
 	    cv.put("capabilities", wifiManager.getScanResults().get(i).capabilities);
 	    sql.insert("wardriving", null, cv);
+        }
      }
     sql.close();
    }
@@ -60,15 +72,15 @@ public class wifigps_scan extends Service {
 		@Override
 		public void run() {
 			// TODO Auto-generated method stub
-			WifiManager wifiManager =(WifiManager)getSystemService(Context.WIFI_SERVICE);
-			MainActivity.txt3.setText("");
-		    for(int i=0;i<wifiManager.getScanResults().size();i++){	
-		    MainActivity.txt2.setText("Wireless [Scanner]: OK"+" Found Wifi: "+(i+1)+" AP");
-			MainActivity.txt3.append(wifiManager.getScanResults().get(i).SSID+
-						"("+wifiManager.getScanResults().get(i).BSSID+
-						")["+wifiManager.getScanResults().get(i).level+
-						"]"+wifiManager.getScanResults().get(i).capabilities+"\r\n");
-		    }
+			 WifiManager wifiManager =(WifiManager)getSystemService(Context.WIFI_SERVICE);
+			 MainActivity.txt3.setText("");
+			 for(int i=0;i<wifiManager.getScanResults().size();i++){	
+			 MainActivity.txt2.setText("Wireless [Scanner]: OK"+" Found Wifi: "+(i+1)+" AP");
+		     MainActivity.txt3.append(wifiManager.getScanResults().get(i).SSID+
+							"("+wifiManager.getScanResults().get(i).BSSID+
+							")["+wifiManager.getScanResults().get(i).level+
+							"]"+wifiManager.getScanResults().get(i).capabilities+"\r\n");
+			 }
 			if(lat==0.0&&lon==0.0&&speed==0.0f&&time==0){
 				if(MainActivity.rd1.isChecked()){
 					MainActivity.txt1.setText
@@ -94,8 +106,8 @@ public class wifigps_scan extends Service {
 		 		    +"Speed: "+speed+" KM"+" "
 		 		    +"Time:"+time);
 				}
-			}else{data();}
-	      h.postDelayed(this, 2000);
+			}else{new asyncdata().execute();}
+			h.postDelayed(this,1500);
 		}
 	};		
 	public LocationListener gpslist=new LocationListener(){

@@ -23,7 +23,9 @@
             android:layout_width="328dp"
             android:layout_height="48dp"
             android:text="Location: No Data"
+            android:textSize="13sp"
             tools:ignore="HardcodedText" />
+
     </LinearLayout>
 
     <ToggleButton
@@ -80,7 +82,7 @@
             android:layout_width="328dp"
             android:layout_height="wrap_content"
             android:text="Wireless: No Data"
-            android:textSize="15sp" />
+            android:textSize="14sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -95,13 +97,18 @@
             android:layout_height="302dp"
             android:fillViewport="true"
             android:scrollbars="vertical" >
-
+       <HorizontalScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="fill_parent" 
+            android:layout_height="302dp"
+            android:fillViewport="true"
+            android:scrollbars="horizontal">
         <TextView
             android:id="@+id/textView3"
             android:layout_width="328dp"
             android:layout_height="match_parent"
             android:textSize="12sp" />
-
+        </HorizontalScrollView>
       </ScrollView>
     </LinearLayout>
 

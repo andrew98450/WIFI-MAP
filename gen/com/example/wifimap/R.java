@@ -477,20 +477,20 @@ containing a value of this type.
         public static final int powered_by_google_light=0x7f020021;
     }
     public static final class id {
-        public static final int About=0x7f0b0029;
-        public static final int Clear=0x7f0b0028;
-        public static final int Exit=0x7f0b002a;
-        public static final int KML=0x7f0b0026;
+        public static final int About=0x7f0b002a;
+        public static final int Clear=0x7f0b0029;
+        public static final int Exit=0x7f0b002b;
+        public static final int KML=0x7f0b0027;
         public static final int adjust_height=0x7f0b0000;
         public static final int adjust_width=0x7f0b0001;
         public static final int book_now=0x7f0b0010;
-        public static final int button1=0x7f0b0024;
+        public static final int button1=0x7f0b0025;
         public static final int buyButton=0x7f0b000c;
         public static final int buy_now=0x7f0b0011;
         public static final int buy_with_google=0x7f0b0012;
         public static final int classic=0x7f0b0014;
         public static final int donate_with_google=0x7f0b0013;
-        public static final int editText1=0x7f0b0023;
+        public static final int editText1=0x7f0b0024;
         public static final int grayscale=0x7f0b0015;
         public static final int holo_dark=0x7f0b0007;
         public static final int holo_light=0x7f0b0008;
@@ -498,8 +498,8 @@ containing a value of this type.
         public static final int imageView1=0x7f0b0018;
         public static final int linearLayout1=0x7f0b001a;
         public static final int linearLayout2=0x7f0b0020;
-        public static final int map=0x7f0b0025;
-        public static final int mapview=0x7f0b0027;
+        public static final int map=0x7f0b0026;
+        public static final int mapview=0x7f0b0028;
         public static final int match_parent=0x7f0b000e;
         public static final int monochrome=0x7f0b0016;
         public static final int none=0x7f0b0002;
@@ -511,13 +511,14 @@ containing a value of this type.
         public static final int radioGroup1=0x7f0b001c;
         public static final int sandbox=0x7f0b000a;
         public static final int satellite=0x7f0b0005;
+        public static final int scrollView=0x7f0b0022;
         public static final int selectionDetails=0x7f0b000d;
         public static final int slide=0x7f0b0017;
         public static final int strict_sandbox=0x7f0b000b;
         public static final int terrain=0x7f0b0006;
         public static final int textView1=0x7f0b0019;
         public static final int textView2=0x7f0b0021;
-        public static final int textView3=0x7f0b0022;
+        public static final int textView3=0x7f0b0023;
         public static final int toggleButton1=0x7f0b001b;
         public static final int wrap_content=0x7f0b000f;
     }
