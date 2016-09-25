@@ -103,11 +103,13 @@
             android:layout_height="302dp"
             android:fillViewport="true"
             android:scrollbars="horizontal">
+
         <TextView
             android:id="@+id/textView3"
             android:layout_width="328dp"
             android:layout_height="match_parent"
-            android:textSize="12sp" />
+            android:textSize="11sp" />
+
         </HorizontalScrollView>
       </ScrollView>
     </LinearLayout>

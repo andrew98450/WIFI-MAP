@@ -36,7 +36,7 @@ public class wifigps_scan extends Service {
 		@Override
 		protected Void doInBackground(Void... params) {
 			// TODO Auto-generated method stub
-			h.postDelayed(wifigps,1500);
+			h.postDelayed(wifigps,1000);
 			return null;
 		}
 	}
@@ -53,6 +53,7 @@ public class wifigps_scan extends Service {
 	 sqldatabase sqldata=new sqldatabase(wifigps_scan.this);
      SQLiteDatabase sql=sqldata.getWritableDatabase();
      ContentValues cv = new ContentValues();
+     wifiManager.startScan();
      for(int i=0;i<wifiManager.getScanResults().size();i++){
         Cursor cu=sql.query("wardriving", new String[]{"SSID"}, "bssid = ?", new String[]{wifiManager.getScanResults().get(i).BSSID}, null, null, null);
         if(!cu.moveToFirst()){
@@ -74,6 +75,7 @@ public class wifigps_scan extends Service {
 			// TODO Auto-generated method stub
 			 WifiManager wifiManager =(WifiManager)getSystemService(Context.WIFI_SERVICE);
 			 MainActivity.txt3.setText("");
+			 wifiManager.startScan();
 			 for(int i=0;i<wifiManager.getScanResults().size();i++){	
 			 MainActivity.txt2.setText("Wireless [Scanner]: OK"+" Found Wifi: "+(i+1)+" AP");
 		     MainActivity.txt3.append(wifiManager.getScanResults().get(i).SSID+
@@ -107,7 +109,7 @@ public class wifigps_scan extends Service {
 		 		    +"Time:"+time);
 				}
 			}else{new asyncdata().execute();}
-			h.postDelayed(this,1500);
+			h.postDelayed(this,1000);
 		}
 	};		
 	public LocationListener gpslist=new LocationListener(){
