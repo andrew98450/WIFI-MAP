@@ -36,7 +36,7 @@
           <activity android:name="com.example.wifimap.mapview" android:label="@string/mapview" android:screenOrientation="portrait"></activity> 
           <service android:name="com.example.wifimap.wifigps_scan"></service>
           <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
-          <meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyB6RL5ouBFxZPia689fFY-Z-4BjX6oUARQ"/>  
+          <meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyAFG_zo2qiULBMGWB_wD18tqjS0Kbg9yY4"/>  
           <uses-library android:name="com.google.android.maps" />
     </application>
 </manifest>

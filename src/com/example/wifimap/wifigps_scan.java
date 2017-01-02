@@ -36,7 +36,15 @@ public class wifigps_scan extends Service {
 		@Override
 		protected Void doInBackground(Void... params) {
 			// TODO Auto-generated method stub
-			h.postDelayed(wifigps,1000);
+			Thread run=new Thread(){
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					h.postDelayed(wifigps,100);
+				}
+			};
+			run.setDaemon(true);
+			run.start();
 			return null;
 		}
 	}
@@ -76,13 +84,7 @@ public class wifigps_scan extends Service {
 			 WifiManager wifiManager =(WifiManager)getSystemService(Context.WIFI_SERVICE);
 			 MainActivity.txt3.setText("");
 			 wifiManager.startScan();
-			 for(int i=0;i<wifiManager.getScanResults().size();i++){	
-			 MainActivity.txt2.setText("Wireless [Scanner]: OK"+" Found Wifi: "+(i+1)+" AP");
-		     MainActivity.txt3.append(wifiManager.getScanResults().get(i).SSID+
-							"("+wifiManager.getScanResults().get(i).BSSID+
-							")["+wifiManager.getScanResults().get(i).level+
-							"]"+wifiManager.getScanResults().get(i).capabilities+"\r\n");
-			 }
+			
 			if(lat==0.0&&lon==0.0&&speed==0.0f&&time==0){
 				if(MainActivity.rd1.isChecked()){
 					MainActivity.txt1.setText
@@ -91,6 +93,7 @@ public class wifigps_scan extends Service {
 		 		    +"Longitude: "+lon+"\r\n" 
 		 		    +"Speed: "+speed+" KM"+" "
 		 		    +"Time:"+time);
+					MainActivity.txt2.setText("Wireless : Wait");
 				}
 				if(MainActivity.rd2.isChecked()){
 					MainActivity.txt1.setText
@@ -99,6 +102,7 @@ public class wifigps_scan extends Service {
 		 		    +"Longitude: "+lon+"\r\n" 
 		 		    +"Speed: "+speed+" KM"+" "
 		 		    +"Time:"+time);
+					MainActivity.txt2.setText("Wireless : Wait");
 				}
 				if(MainActivity.rd3.isChecked()){
 					MainActivity.txt1.setText
@@ -107,9 +111,19 @@ public class wifigps_scan extends Service {
 		 		    +"Longitude: "+lon+"\r\n" 
 		 		    +"Speed: "+speed+" KM"+" "
 		 		    +"Time:"+time);
+					MainActivity.txt2.setText("Wireless : Wait");
 				}
-			}else{new asyncdata().execute();}
-			h.postDelayed(this,1000);
+			}else{ 
+		        for(int i=0;i<wifiManager.getScanResults().size();i++){	
+				 MainActivity.txt2.setText("Wireless [Scanner]: OK"+" Found Wifi: "+(i+1)+" AP");
+			     MainActivity.txt3.append(wifiManager.getScanResults().get(i).SSID+
+								"("+wifiManager.getScanResults().get(i).BSSID+
+								")["+wifiManager.getScanResults().get(i).level+
+								"]"+wifiManager.getScanResults().get(i).capabilities+"\r\n");
+				}
+				new asyncdata().execute();
+		   }
+		   h.postDelayed(this,1000);
 		}
 	};		
 	public LocationListener gpslist=new LocationListener(){
